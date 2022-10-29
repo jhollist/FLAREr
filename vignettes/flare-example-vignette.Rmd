@@ -77,23 +77,23 @@ dir.create(file.path(lake_directory, "R")) # For supplementary R scripts
 First, `FLAREr` requires two configuration yaml files.  The code below copies examples from the `FLAREr` package.
 
 ```{r}
-file.copy(system.file("example", "configuration", "flarer", "configure_flare.yml", package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "configure_flare.yml"))
-file.copy(system.file("example", "configuration", "flarer", "configure_run.yml", package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "configure_run.yml"))
+file.copy(system.file(file.path("example", "configuration", "default", "configure_flare.yml"), package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "configure_flare.yml"))
+file.copy(system.file(file.path("example", "configuration", "default", "configure_run.yml"), package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "configure_run.yml"))
 ```
 
 Second, `FLAREr` requires a set of configuration CSV files.  The CSV files are used to define the states that are simulated and the parameters that are calibrated. The code below copies examples from the `FLAREr` package
 
 ```{r}
-file.copy(system.file("example", "configuration", "flarer", "parameter_calibration_config.csv", package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "parameter_calibration_config.csv"))
-file.copy(system.file("example", "configuration", "flarer", "states_config.csv", package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "states_config.csv"))
-file.copy(system.file("example", "configuration", "flarer", "depth_model_sd.csv", package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "depth_model_sd.csv"))
-file.copy(system.file("example", "configuration", "flarer", "observations_config.csv", package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "observations_config.csv"))
+file.copy(system.file(file.path("example", "configuration", "default", "parameter_calibration_config.csv"), package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "parameter_calibration_config.csv"))
+file.copy(system.file(file.path("example", "configuration", "default", "states_config.csv"), package = "FLAREr"), file.path(lake_directory, "configuration", "states_config.csv"))
+file.copy(system.file(file.path("example", "configuration", "default", "depth_model_sd.csv"), package = "FLAREr"), file.path(lake_directory, "configuration", "depth_model_sd.csv"))
+file.copy(system.file(file.path("example", "configuration", "default", "observations_config.csv"), package = "FLAREr"), file.path(lake_directory, "configuration", "flarer", "observations_config.csv"))
 ```
 
 Third, FLAREr requires GLM specific configurations files.  For applications that require on water temperature, only the GLM namelist file is needed.  Applications that require other water quality variables will require additional namelist files that are associated with the AED model.
 
 ```{r}
-file.copy(system.file("example", "configuration", "forecast_model", "glm", "glm3.nml", package = "FLAREr"), file.path(lake_directory, "configuration", "forecast_model", "glm", "glm3.nml"))
+file.copy(system.file(file.path("example", "configuration", "default", "glm3.nml"), package = "FLAREr"), file.path(lake_directory, "configuration", "forecast_model", "glm", "glm3.nml"))
 ```
 
 ## 3: Observation and driver files
@@ -108,7 +108,8 @@ file.copy(from = system.file("example/forecasted_drivers", package = "FLAREr"), 
 First, FLAREr requires the observation file to have a specific name (observations_postQAQC_long.csv) and format.
 
 ```{r}
-head(read_csv(file.path(lake_directory,"/data_processed/observations_postQAQC_long.csv"), col_types = readr::cols()))
+#File doesn't exist...
+#head(read_csv(file.path(lake_directory,"/data_processed/observations_postQAQC_long.csv"), col_types = readr::cols()))
 ```
 
 Second, FLARE are requires the observed (historical) meteorology to be a specific name (observed-met_fcre.nc) and format. 
@@ -119,13 +120,14 @@ ncdf4::nc_open(file.path(lake_directory, "data_processed/observed-met_fcre.nc"))
 Third, FLARE are requires the observed (historical) inflow and outflow to be a specific name (inflow_postQAQC.csv) and format. 
 
 ```{r}
-head(read_csv(file.path(lake_directory, "data_processed/inflow_postQAQC.csv"), col_types = readr::cols()))
+#File doesn't exist...
+#head(read_csv(file.path(lake_directory, "data_processed/inflow_postQAQC.csv"), col_types = readr::cols()))
 ```
 
 Finally, if using forecasted meteorology and inflows, FLAREr requires specific file formats and file names with specific characters (INFLOW or OUTFLOW). The follow set of files are the forecasted inflow files in the example. 
 
 ```{r}
-all_files <- list.files(file.path(lake_directory,"forecasted_drivers/FLOWS-NOAAGEFS-AR1"), full.names = TRUE)
+all_files <- list.files(file.path(lake_directory,"forecasted_drivers/inflow/FLOWS-NOAAGEFS-AR1"), full.names = TRUE)
 basename(all_files[stringr::str_detect(all_files,"INFLOW")])
 ```
 
@@ -138,7 +140,7 @@ head(read_csv(all_files[stringr::str_detect(all_files,"INFLOW")][1], col_types =
 Similarly, the forecasted NOAA GEFS meteorology has a specific file formats and file names with specific characters (NOAAGEGS_1hr). The follow set of files are the forecasted meteorology files in the example.
 
 ```{r}
-all_files <- list.files(file.path(lake_directory, "forecasted_drivers/NOAAGEFS_1hr-debias"), full.names = TRUE)
+all_files <- list.files(file.path(lake_directory, "forecasted_drivers/noaa/NOAAGEFS_1hr-debias"), full.names = TRUE)
 basename(all_files)
 ```
 

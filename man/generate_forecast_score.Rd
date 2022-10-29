@@ -11,9 +11,6 @@ generate_forecast_score(targets_file, forecast_file, output_directory)
 
 \item{forecast_file}{forecast file}
 }
-\value{
-
-}
 \description{
 Score a forecast using score4cast package
 }

@@ -9,7 +9,8 @@ put_targets(
   cleaned_insitu_file = NA,
   cleaned_met_file = NA,
   cleaned_inflow_file = NA,
-  use_s3 = FALSE
+  use_s3 = FALSE,
+  config
 )
 }
 \arguments{
@@ -22,9 +23,6 @@ put_targets(
 \item{cleaned_inflow_file}{full path of the cleaned inflow file}
 
 \item{use_s3}{logical; TRUE = use s3}
-}
-\value{
-
 }
 \description{
 Save target files to s3 bucket

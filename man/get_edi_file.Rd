@@ -13,9 +13,6 @@ get_edi_file(edi_https, file, lake_directory)
 
 \item{lake_directory}{full path to repository directory}
 }
-\value{
-
-}
 \description{
 Download file from EDI data portal
 }
